@@ -1,0 +1,66 @@
+<div class="col-xs-9  col-md-10 "  ng-controller="NewMealCtrl as ctrl">
+    <h2>Enter the Meal Details</h2>
+
+    <form name="frmMealDetails" ng-submit="(frmMealDetails.$valid && ctrl.submit())" novalidate >
+        <div class="row">
+            <label class="col-xs-6 col-md-4" for="mealPrice">Base Meal Price: £</label>
+            <input class="col-xs-6 col-md-4" type="number" ng-model="ctrl.mealDetail.mealPrice" id="mealPrice" name="mealPrice" min="1" max="100"  required>
+                    <span class="error" ng-show=" frmMealDetails.$submitted && frmMealDetails.mealPrice.$error.required">
+                        This field is required!</span>
+                      <span class="error" ng-show="frmMealDetails.$submitted && frmMealDetails.mealPrice.$error.number">
+                        Not valid number!</span>
+                     <span class="error" ng-show="frmMealDetails.$submitted && frmMealDetails.mealPrice.$error.min">
+                        Please enter a number greater than 0</span>
+                     <span class="error" ng-show="frmMealDetails.$submitted && frmMealDetails.mealPrice.$error.max">
+                       Meal price cannot be greater than 100</span>
+        </div>
+
+        <div class="row">
+            <label class="col-xs-6 col-md-4" for="taxRate">Tax Rate %</label>
+            <input  class="col-xs-6 col-md-4" type="number"  ng-model="ctrl.mealDetail.taxRate" id="taxRate" name="taxRate"  min="0" max="100" required>
+                    <span class="error" ng-show=" frmMealDetails.$submitted && frmMealDetails.taxRate.$error.required">
+                        This field is required!</span>
+                      <span class="error" ng-show="frmMealDetails.$submitted && frmMealDetails.taxRate.$error.number">
+                        Not valid number!</span>
+                     <span class="error" ng-show="frmMealDetails.$submitted && frmMealDetails.taxRate.$error.min">
+                        Please enter a positive number</span>
+                     <span class="error" ng-show="frmMealDetails.$submitted && frmMealDetails.taxRate.$error.max">
+                      Tax rate cannot be greater than 100</span>
+        </div>
+
+        <div class="row">
+            <label class="col-xs-6 col-md-4" for="tipPercentage">Tip Percentage %</label>
+            <input class="col-xs-6 col-md-4" type="number"  ng-model="ctrl.mealDetail.tipPercentage" id="tipPercentage" name="tipPercentage" min="0" max="100" required>
+                    <span class="error" ng-show=" frmMealDetails.$submitted && frmMealDetails.tipPercentage.$error.required">
+                        This field is required!</span>
+                      <span class="error" ng-show="frmMealDetails.$submitted && frmMealDetails.tipPercentage.$error.number">
+                        Not valid number!</span>
+                     <span class="error" ng-show="frmMealDetails.$submitted && frmMealDetails.tipPercentage.$error.min">
+                        Please enter a positive number</span>
+                     <span class="error" ng-show="frmMealDetails.$submitted && frmMealDetails.tipPercentage.$error.max">
+                      Tip percentage cannot be greater than 100</span>
+        </div>
+
+        <div class="row">
+            <input class="pull-right"  type="submit" value="Submit">
+            <input class="pull-right" type="button" value="Cancel" ng-click="ctrl.cancel()">
+        </div>
+    </form>
+    <div class="row">
+        <h2> Customer Charges</h2>
+
+        <div class="row">
+            <label class="col-xs-6 col-md-4" for="subTotal">Subtotal</label>
+            <input class="col-xs-6 col-md-4" name="subTotal" ng-model="ctrl.customerCharge.subTotal" id="subTotal" type="number" readonly>
+        </div>
+        <div class="row">
+            <label class="col-xs-6 col-md-4" for="tip">Tip</label>
+            <input class="col-xs-6 col-md-4" name="tip" ng-model="ctrl.customerCharge.tip" id="tip" type="number" readonly>
+        </div>
+        <hr style="border: double">
+        <div class ="row">
+            <label class="col-xs-6 col-md-4" for="total">Total</label>
+            <input class="col-xs-6 col-md-4" name="total" ng-model="ctrl.customerCharge.total" id="total" type="number" readonly>
+        </div>
+    </div>
+</div>

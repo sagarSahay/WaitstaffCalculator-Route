@@ -1,0 +1,22 @@
+<div class="row" ng-controller="MyEarningsCtrl as ctrl">
+    <h2>My Earnings Info</h2>
+
+    <div class="row">
+        <label class="col-xs-6 col-md-4" for="tipTotal">Tip Total:</label>
+        <input class="col-xs-6 col-md-4" name="tipTotal" ng-model="ctrl.myEarnings.tipTotal" id="tipTotal" type="number"
+               readonly>
+    </div>
+    <div class="row">
+        <label class="col-xs-6 col-md-4" for="mealCount">Meal count:</label>
+        <input class="col-xs-6 col-md-4" name="mealCount" ng-model="ctrl.myEarnings.mealCount" id="mealCount"
+               type="number" readonly>
+    </div>
+    <div class="row">
+        <label class="col-xs-6 col-md-4" for="avgTipPerMeal">Average Tip Per Meal:</label>
+        <input class="col-xs-6 col-md-4" name="avgTipPerMeal" ng-model="ctrl.myEarnings.avgTipPerMeal"
+               id="avgTipPerMeal" type="number" readonly>
+    </div>
+    <div class="row">
+        <input class="pull-right" type="button" value="Reset" ng-click="ctrl.reset()">
+    </div>
+</div>
