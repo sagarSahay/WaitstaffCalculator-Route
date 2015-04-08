@@ -8,10 +8,10 @@ angular.module('WaitstaffApp', ['ngRoute'])
             controller: 'HomeCtrl'
         }).when('/newmeal', {
             templateUrl: './newMeal.html',
-            controller: 'NewMealCtrl'
+            controller: 'NewMealCtrl as ctrl'
         }).when('/myearnings', {
             templateUrl: './myEarnings.html',
-            controller: 'MyEarningsCtrl'
+            controller: 'MyEarningsCtrl as ctrl'
         })
     })
     .controller('HomeCtrl', function ($scope) {
@@ -48,31 +48,28 @@ angular.module('WaitstaffApp', ['ngRoute'])
             vm.customerCharge = [];
         });
     })
-    .controller('MyEarningsCtrl', function ($scope, $rootScope, MealService,MyEarningsService) {
+    .controller('MyEarningsCtrl', function ($scope, $rootScope, MealService) {
         var vm = this;
         vm.myEarnings = {
             tipTotal: 0,
             mealCount: 0,
             avgTipPerMeal: 0
         };
-        vm.oldEarningsValue={}
         vm.reset = function () {
             $rootScope.$broadcast('reset', {});
         };
-        var data = MealService.get();
-        var oldData=MyEarningsService.get();
-        vm.myEarnings.tipTotal = (oldData.tipTotal || 0) + data.tip;
-        vm.myEarnings.mealCount = (oldData.mealCount || 0) + 1;
+
+        vm.myEarnings.tipTotal =MealService.get().reduce(function(a,b){ return a.tip+ b.tip;},0);//(oldData.tipTotal || 0) + data.tip;
+        vm.myEarnings.mealCount = MealService.get().length;
         vm.myEarnings.avgTipPerMeal = vm.myEarnings.tipTotal / vm.myEarnings.mealCount;
-        MyEarningsService.set(vm.myEarnings);
         $scope.$on('reset', function (event, data) {
             vm.myEarnings = data;
         });
     }).service('MealService', function () {
-        var mealData = {};
+        var mealData = [];
 
         function setMealData(data) {
-            mealData = data;
+            mealData.push(data);
         };
         function getMealData() {
             return mealData;
@@ -82,18 +79,4 @@ angular.module('WaitstaffApp', ['ngRoute'])
             set: setMealData,
             get: getMealData
         }
-    }).service('MyEarningsService',function(){
-        var earningsData={};
-
-        function setEarningsData(data){
-            earningsData=data;
-        };
-        function getEarningsData(){
-            return earningsData;
-        };
-        return {
-            set: setEarningsData,
-            get: getEarningsData
-        }
-
     });
