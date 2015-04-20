@@ -59,24 +59,34 @@ angular.module('WaitstaffApp', ['ngRoute'])
             $rootScope.$broadcast('reset', {});
         };
 
-        vm.myEarnings.tipTotal =MealService.get().reduce(function(a,b){ return a.tip+ b.tip;},0);//(oldData.tipTotal || 0) + data.tip;
+
+        //vm.myEarnings.tipTotal = MealService.get().reduce(function (prev, current) {
+        //    return +(current[1].tip) + prev.tip;
+        //}, 0);//(oldData.tipTotal || 0) + data.tip;
+        vm.myEarnings.tipTotal = MealService.getTotalTip();
         vm.myEarnings.mealCount = MealService.get().length;
-        vm.myEarnings.avgTipPerMeal = vm.myEarnings.tipTotal / vm.myEarnings.mealCount;
+        vm.myEarnings.avgTipPerMeal = MealService.getTotalTip() / vm.myEarnings.mealCount;
         $scope.$on('reset', function (event, data) {
             vm.myEarnings = data;
         });
     }).service('MealService', function () {
         var mealData = [];
+        var totalTip = 0;
 
         function setMealData(data) {
             mealData.push(data);
+            totalTip = totalTip + data.tip;
         };
         function getMealData() {
             return mealData;
         };
+        function getTotal() {
+            return totalTip;
+        };
 
         return {
             set: setMealData,
-            get: getMealData
+            get: getMealData,
+            getTotalTip: getTotal
         }
     });
