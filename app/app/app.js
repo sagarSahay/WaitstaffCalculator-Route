@@ -1,7 +1,7 @@
 /**
  * Created by Sagar on 06/04/2015.
  */
-angular.module('WaitstaffApp', ['ngRoute'])
+angular.module('WaitstaffApp', ['ngRoute','ngAnimate'])
     .config(function ($routeProvider) {
         $routeProvider.when('/', {
             templateUrl: './home.html',
@@ -15,10 +15,12 @@ angular.module('WaitstaffApp', ['ngRoute'])
         })
     })
     .controller('HomeCtrl', function ($scope) {
-
+        var vm = this;
+        $scope.pageClass = 'page-home';
     })
     .controller('NewMealCtrl', function ($scope, $rootScope, MealService) {
         var vm = this;
+        $scope.pageClass = 'page-home';
         vm.mealDetail = {
             mealPrice: 0,
             taxRate: 0,
@@ -50,6 +52,7 @@ angular.module('WaitstaffApp', ['ngRoute'])
     })
     .controller('MyEarningsCtrl', function ($scope, $rootScope, MealService) {
         var vm = this;
+        $scope.pageClass = 'page-home';
         vm.myEarnings = {
             tipTotal: 0,
             mealCount: 0,
